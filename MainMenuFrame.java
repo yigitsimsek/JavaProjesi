@@ -14,7 +14,7 @@ public class MainMenuFrame extends JFrame{
 	private JButton scoreButton; 
 	
 	public MainMenuFrame() {
-		super( "The Sleeper Must Awaken" );
+		super( "Desert Contact" );
 		setContentPane(new JLabel(new ImageIcon( getClass().getResource("textures/BACKGROUND.jpg") )));
 		
 		setLayout( new FlowLayout() );
@@ -49,12 +49,14 @@ public class MainMenuFrame extends JFrame{
 		scoreButton.addActionListener( handler );
 	}
 	
-	private class MainHandler implements ActionListener{
+	private class MainHandler implements ActionListener {
 		public void actionPerformed( ActionEvent event ) {
 			if( event.getSource() == startButton ) {
+				
 				GameFrame gameFrame = new GameFrame();
-				gameFrame.setDefaultCloseOperation( EXIT_ON_CLOSE );
+				gameFrame.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
 				gameFrame.setVisible(true);
+			
 			}
 			else if( event.getSource() == loginButton ) {
 							
@@ -67,4 +69,13 @@ public class MainMenuFrame extends JFrame{
 			}
 		}
 	}
+	
+	public static void main (String[] args) {
+		MainMenuFrame mainMenuFrame = new MainMenuFrame();
+		mainMenuFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		mainMenuFrame.setSize(1024, 768);
+		mainMenuFrame.setVisible(true);
+	}
 }
+
+

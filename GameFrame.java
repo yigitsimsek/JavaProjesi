@@ -1,21 +1,20 @@
 import javax.swing.JFrame;
 
 public class GameFrame extends JFrame {
-	private boolean running;
-	private PlayerPlane playerPlane;
-	static BackgroundPanel backgroundPanel = new BackgroundPanel();
+	Thread gameThread;
+	GamePanel gamePanel = new GamePanel();
 	
 	public GameFrame() {
-		super("Arabian Nights");
+		super("Desert Contact");
 		
 		setBounds(200, 200, 1024, 768);
 		setResizable( false );
-		
-		playerPlane= new PlayerPlane();
-		add(playerPlane);
-		playerPlane.setVisible(true);
-		addKeyListener( playerPlane );
-		playerPlane.repaint();	 
-	}
 
+		add( gamePanel );
+		gamePanel.setVisible(true);
+		addKeyListener( gamePanel );
+		
+		gameThread = new Thread(gamePanel);
+		gameThread.start();
+	}
 }

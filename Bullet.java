@@ -1,52 +1,25 @@
-import java.awt.Graphics;
-
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-
-public class Bullet extends JPanel implements Runnable {
-	private int xCoordinate, yCoordinate;
-	private boolean isPlayers;
-	private Thread thread;
-	private ImageIcon bullet;
+public class Bullet extends Sprite {
+	public boolean isPlayers;
+	private final int MY_SPEED = 25;
+	private final int ENEMY_SPEED = 9;
 	
 	public Bullet(int x, int y, boolean isPlyrs) {
-		this.xCoordinate = x;
-		this.yCoordinate = y;
+		super((isPlyrs ? "textures/PLAYER_BULLET.png" : "textures/ENEMY_BULLET.png")
+				, (isPlyrs ? x-13 : x-13)
+				, (isPlyrs ? y-25 : y-25)
+				, (isPlyrs ? 26 : 15)
+				, (isPlyrs ? 90 : 45));
+		
 		this.isPlayers = isPlyrs;
-		
-		if(isPlayers) {
-			bullet = new ImageIcon( getClass().getResource("textures/PLAYER_BULLET.png") );
-		}
-		else if(isPlayers) {
-			bullet = new ImageIcon( getClass().getResource("textures/ENEMY_BULLET.png") );
-		}
-		
-		thread=new Thread(this);
-		thread.start();
 	}
 	
 	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		
-		if(isPlayers) {
-			g.drawImage( bullet.getImage(), xCoordinate+52, yCoordinate-30, 25, 89, null );
+	public void update() {
+		if (isPlayers) {
+			y -= MY_SPEED;
 		}
-	}
-	
-	public int getxCoordinate() {
-		return xCoordinate;	
-	}
-	
-	public int getyCoordinate() {
-		return yCoordinate;	
-	}
-
-	@Override
-	public void run() {
-		if(isPlayers) {
-			repaint();
-			this.yCoordinate -= 10;
+		else {
+			y += ENEMY_SPEED;
 		}
 	}
 }
